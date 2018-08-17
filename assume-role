@@ -193,6 +193,9 @@ assume-role(){
     #only create a session if MFA credentials are given
     if [ -n "$mfa_token" ]; then
 
+      # chained-roles are only allowed 1 hour
+      ROLE_SESSION_TIMEOUT=3600
+      
       # get the username attached to your default creds
       AWS_USERNAME=$(aws iam get-user --query User.UserName --output text --profile $default_profile)
 
